@@ -1,9 +1,15 @@
 {
   "name": "turbo-doodle",
+  "description": "End to end sample for running Node.js applications on Google Cloud Platform",
+  "repository": "https://github.com/bsch150/turbo-doodle",
   "version": "0.0.0",
+  "license": "Apache-2.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "e2e": "repo-tools test deploy",
+    "test": "repo-tools test app",
+    "cover": "nyc --cache npm test; nyc report --reporter=html"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -12,5 +18,27 @@
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
     "morgan": "~1.9.0"
+  },
+  "author": "Google Inc.",
+  "engines": {
+    "node": ">=8"
+  },
+  "main": "app.js",
+  "cloud-repo-tools": {
+    "requiresKeyFile": true,
+    "requiresProjectId": true,
+    "test": {
+      "app": {
+        "args": [
+          "app.js"
+        ],
+        "msg": "Hello, world!"
+      }
+    }
+  },
+  "devDependencies": {
+    "@google-cloud/nodejs-repo-tools": "^3.0.0",
+    "ava": "0.25.0",
+    "supertest": "^3.3.0"
   }
 }
