@@ -1,9 +1,11 @@
 const Game = require('../model/game');
+const httpUtil = require('../util/http-util');
 const logger = require('../util/debug')('game-service', 4);
 
 module.exports = {
   analyzeBoard,
   initGameForPlayer,
+  getGame,
 };
 
 var games = [];
@@ -21,10 +23,14 @@ var tempGame = [
 ];
 
 function initGameForPlayer(player) {
-  if (games.length === 0 || games[games.length - 1].isFull()) {
+  logger.debug('Initializing game for player (' + player.address + ')');
+  if (games.length === 0 || getLastIndex().isFull()) {
     pushNewGame();
   }
-  games[games.length - 1].addPlayer(player);
+  getLastIndex().addPlayer(player);
+  if (getLastIndex().isFull()) {
+    startGame(getLastIndex());
+  }
 }
 
 function pushNewGame() {
@@ -33,7 +39,13 @@ function pushNewGame() {
   logger.info('Adding new game to the list. No. games: (' + games.length + ')');
 }
 
-//TODO func addPlayerToGame
+function startGame(game) {
+  httpUtil.sendGameState(game);
+}
+
+function getLastIndex() {
+  return games[games.length - 1];
+}
 
 function getGame(index) {
   return games[index];

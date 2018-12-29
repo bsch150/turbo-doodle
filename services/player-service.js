@@ -1,6 +1,6 @@
 const httpUtil = require('../util/http-util');
 const logger = require('../util/debug')('player-map', 1);
-const gameService = require('../service/game-service');
+const gameService = require('../services/game-service');
 
 module.exports = {
   addPlayer,
@@ -29,6 +29,7 @@ function addPlayer(newPlayer) {
   return httpUtil.sendHealthCheck(cleanedPlayer.address)
     .then(function() {
       playerMap.push(cleanedPlayer);
+      gameService.initGameForPlayer(cleanedPlayer);
       return cleanedPlayer;
     }, function(err) {
       logger.error(err);
