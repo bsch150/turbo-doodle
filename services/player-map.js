@@ -1,4 +1,5 @@
 const httpUtil = require('../util/http-util');
+const logger = require('../util/debug')('player-map', 1);
 
 module.exports = {
   addPlayer,
@@ -20,14 +21,21 @@ function addPlayer(newPlayer) {
   //Check for duplicate addresses before adding
   playerMap.forEach(verifyAddressIsNotDuplicate);
 
+  //Remove all attributes that aren't whitelisted
   var cleanedPlayer = cleanPlayer();
 
+  //Verify the player software is healthy
   return httpUtil.sendHealthCheck(cleanedPlayer.address)
     .then(function() {
       playerMap.push(cleanedPlayer);
       return cleanedPlayer;
+    }, function(err) {
+      logger.error(err);
+      throw new Error('Player address did not respond properly. ' +
+        'Address: (' + cleanedPlayer.address + ')');
     });
 
+  //Helpers
   function verifyAttributeExists(attr) {
     if (!newPlayer[attr]) {
       throw new Error('New player did not have required attribute: ' +

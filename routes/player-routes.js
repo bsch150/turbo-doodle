@@ -22,7 +22,7 @@ function registerPlayer(req, res, next) {
       .catch(function(error) {
         logger.error(error);
         res.status(500);
-        res.send('There was a problem adding the player.');
+        res.send(error.message);
         return;
       });
   } catch (err) {

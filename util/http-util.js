@@ -26,11 +26,19 @@ function wrapRequestInPromise(method, url, body) {
 
   request(obj)
     .on('response', function(response) {
-      logger.debug(response);
-      if (response.data) {
-        logger.info(response.data);
+      logger.debug(JSON.stringify(response));
+      logger.debug(response.statusCode);
+
+      if (response.statusCode == 200) {
+        logger.debug("WHAT");
+        if (response.data) {
+          logger.info(response.data);
+        }
+        def.resolve(response.data);
+      } else {
+        logger.error(response.statusMessage);
+        def.reject(response.statusMessage);
       }
-      def.resolve(response.data);
     })
     .on('error', function(err) {
       logger.error(err);

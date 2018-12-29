@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var healthRouter = require('./routes/health-routes');
 var playerRouter = require('./routes/player-routes');
+var gameRouter = require('./routes/game-routes');
 
 var app = express();
 
@@ -19,6 +20,7 @@ app.use(cookieParser());
 
 app.use('/health', healthRouter);
 app.use('/player', playerRouter);
+app.use('/game', gameRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
