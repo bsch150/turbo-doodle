@@ -16,13 +16,8 @@ function prettyFormatDate(date) {
 }
 
 function millisToHoursAndMinutes(millis) {
-  var numMinutes = millis / 1000 / 60;
-  console.log(numMinutes);
-  var numHours = numMinutes % 60;
-  console.log(numHours);
-  var leftOverMinutes = numMinutes - (numHours * 60);
-  console.log(leftOverMinutes);
-  return numHours + " hours, " + numMinutes + " minutes";
+  var numMinutes = Number.parseFloat(millis / 1000 / 60).toPrecision(3);
+  return numMinutes + " minutes";
 }
 
 module.exports = router;
