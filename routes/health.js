@@ -12,7 +12,8 @@ router.get('/', function(req, res, next) {
 });
 
 function prettyFormatDate(date) {
-  return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + ", " + date.getHours() + ":" + date.getMinutes();
+  return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() +
+    ", " + date.getHours() + ":" + date.getMinutes();
 }
 
 function millisToHoursAndMinutes(millis) {
