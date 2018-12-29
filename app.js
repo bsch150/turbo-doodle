@@ -4,8 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var healthRouter = require('./routes/health');
-var playerRouter = require('./routes/player');
+var healthRouter = require('./routes/health-routes');
+var playerRouter = require('./routes/player-routes');
 
 var app = express();
 
