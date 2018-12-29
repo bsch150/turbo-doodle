@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var playerMap = require('../services/player-map');
+var playerMap = require('../services/player-service');
 var logger = require('../util/debug')('player-routes', 2);
 
 router.put('/', registerPlayer);

@@ -1,5 +1,6 @@
 const httpUtil = require('../util/http-util');
 const logger = require('../util/debug')('player-map', 1);
+const gameService = require('../service/game-service');
 
 module.exports = {
   addPlayer,
